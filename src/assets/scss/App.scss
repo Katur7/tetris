@@ -1,12 +1,21 @@
-$bg-color: yellow;
-$border-color: red;
+html {
+  background-color: #555;
+}
+
+body {
+  display: flex;
+  margin: 0 20px;
+}
 
 .app {
-  font-family: helvetica, arial, sans-serif;
-  padding: 2em;
-  border: 5px solid $border-color;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
 
-  p {
-    background-color: $bg-color;
-  }
+canvas#canvas {
+  height: 800px;
+  width: 400px;
+  border: 1px solid black;
 }
