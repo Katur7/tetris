@@ -53,6 +53,9 @@ export class Game {
         for (const coord of this.activePiece.getCoords()) {
           this.board.setSquare(coord.x, coord.y, 'blue');
         }
+
+        this.board.clearFilledRows();
+
         this.activePiece = this.getNextPiece();
       }
     }

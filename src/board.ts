@@ -25,6 +25,7 @@ export class Board {
     const square = this.getSquare(col, row);
     square.filled = false;
     square.color = undefined;
+    Utils.clearSquare(col, row, this.ctx);
   }
 
   public isLegalMove(nextCoords: Coordinates[]) {
@@ -42,19 +43,51 @@ export class Board {
     }
   }
 
-  public willHitBottom(nextCoords: Coordinates[]) {
+  public clearFilledRows() {
+    let filledRows = 0;
+    for (let i = 0; i < 20; i++) {
+      const row = this.board[i];
+      const isFilledRow = row.every(s => s.filled);
+      if (isFilledRow) {
+        filledRows++;
+        this.clearRow(i);
+        for (let j = i - 1; j >= 0; j--) {
+          this.moveRowDown(j);
+        }
+      }
+    }
+    return filledRows;
+  }
+
+  private clearRow(rowIndex: number) {
+    for (let i = 0; i < 10; i++) {
+      this.clearSquare(i, rowIndex);
+    }
+  }
+
+  private moveRowDown(rowIndex: number) {
+    for (let i = 0; i < 10; i++) {
+      const square = this.board[rowIndex][i];
+      if (square.filled && square.color) {
+        this.setSquare(i, rowIndex + 1, square.color);
+        this.clearSquare(i, rowIndex);
+      }
+    }
+  }
+
+  private willHitBottom(nextCoords: Coordinates[]) {
     return nextCoords.some(coord => coord.y >= 20);
   }
 
-  public willHitLeftSide(nextCoords: Coordinates[]) {
+  private willHitLeftSide(nextCoords: Coordinates[]) {
     return nextCoords.some(coord => coord.x < 0);
   }
 
-  public willHitRightSide(nextCoords: Coordinates[]) {
+  private willHitRightSide(nextCoords: Coordinates[]) {
     return nextCoords.some(coord => coord.x >= 10);
   }
 
-  public willHitFilledSquare(nextCoords: Coordinates[]) {
+  private willHitFilledSquare(nextCoords: Coordinates[]) {
     return nextCoords.some(c => {
       const square = this.getSquare(c.x, c.y);
       return square.filled;
@@ -66,7 +99,7 @@ export class Board {
     this.ctx.lineWidth = 1;
     for (let x = 0.5; x < Utils.WIDTH; x += Utils.GRID_GAP) {
       this.ctx.beginPath();
-      this.ctx.moveTo(x, 0);
+      this.ctx.moveTo(x, 0.5);
       this.ctx.lineTo(x, Utils.HEIGHT);
       this.ctx.closePath();
       this.ctx.stroke();
@@ -74,7 +107,7 @@ export class Board {
 
     for (let y = 0.5; y < Utils.HEIGHT; y += Utils.GRID_GAP) {
       this.ctx.beginPath();
-      this.ctx.moveTo(0, y);
+      this.ctx.moveTo(0.5, y);
       this.ctx.lineTo(Utils.WIDTH, y);
       this.ctx.closePath();
       this.ctx.stroke();
