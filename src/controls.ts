@@ -1,5 +1,5 @@
 export class Controls {
-  private lastInput: Input;
+  private lastInput: Input | undefined;
   constructor() {
     // Set up key listeners
     document.addEventListener('keydown', event => {
@@ -25,7 +25,7 @@ export class Controls {
     });
   }
 
-  getLastInput() {
+  public getLastInput() {
     const last = this.lastInput;
     this.lastInput = undefined;
     return last;

@@ -1,34 +1,42 @@
+import { Utils } from './../utils';
+
 export abstract class Piece {
   protected ctx: CanvasRenderingContext2D;
-  protected orientation: Orientation;
+  // protected orientation: Orientation;
   protected xCoord: number;
   protected yCoord: number;
 
   constructor(ctx: CanvasRenderingContext2D) {
     this.ctx = ctx;
-    this.xCoord = 8;
+    this.xCoord = 5;
     this.yCoord = 0;
     this.draw();
   }
 
-  moveDown() {
+  public clear() {
+    const coords = this.getCoords();
+    for (const c of coords) {
+      Utils.clearSquare(c.x, c.y, this.ctx);
+    }
+  }
+
+  public moveDown() {
     this.clear();
     this.yCoord += 1;
   }
 
-  moveLeft() {
+  public moveLeft() {
     this.clear();
     this.xCoord -= 1;
   }
 
-  moveRight() {
+  public moveRight() {
     this.clear();
     this.xCoord += 1;
   }
 
-  abstract draw(): void;
-  abstract clear(): void;
-  abstract getCoords(): Array<Coordinates>;
+  public abstract draw(): void;
+  public abstract getCoords(): Coordinates[];
 }
 
 export enum Orientation {

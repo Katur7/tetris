@@ -1,13 +1,30 @@
-// import { Piece } from './piece';
+import { Utils } from '../utils';
+import { Piece } from './piece';
 
-// export class OPiece extends Piece {
-//   drawUp() {
+export class OPiece extends Piece {
+  public draw() {
+    this.ctx.fillStyle = 'red';
+    const coords = this.getCoords();
+    for (const c of coords) {
+      Utils.drawSquare(c.x, c.y, this.ctx);
+    }
+  }
 
-//   }
+  public clear() {
+    const coords = this.getCoords();
+    for (const c of coords) {
+      Utils.clearSquare(c.x, c.y, this.ctx);
+    }
+  }
 
-//   drawDown() {}
-
-//   drawLeft() {}
-
-//   drawRight() {}
-// }
+  public getCoords() {
+    const x = this.xCoord;
+    const y = this.yCoord;
+    return  [
+      {x, y},
+      {x: x + 1, y},
+      {x, y: y + 1},
+      {x: x + 1, y: y + 1}
+    ];
+  }
+}

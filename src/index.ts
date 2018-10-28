@@ -1,9 +1,12 @@
 import './App.scss';
 import { Game } from './game';
 
-const canvas = <HTMLCanvasElement>document.getElementById('canvas');
+const canvas = document.getElementById('canvas') as HTMLCanvasElement;
 const ctx = canvas.getContext('2d');
 
+if (ctx === null) {
+  throw new Error('Canvas not found');
+}
 // Save state of canvas before all pieces
 // So first save empty board
 // Then animate the first piece until it's stuck
@@ -16,19 +19,12 @@ const ctx = canvas.getContext('2d');
 const game = new Game(ctx);
 game.start();
 
-// Make grid
-// const HEIGHT = canvas.height;
-// const WIDTH = canvas.width;
-// const BOX_SIZE = 40;
-// const GRID_GAP = 41;
-
 // drawTPiece(0, 0);
 // drawSquarePiece(3, 1);
 // drawJPiece(1, 4);
 // drawLPiece(4, 4);
 // drawZPiece(1, 8);
 // drawNPiece(5, 8);
-
 
 // function getCoords(col: number, row: number) {
 //   const x = 1 + (col * (BOX_SIZE + 1));

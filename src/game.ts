@@ -1,7 +1,8 @@
+import { Board } from './board';
 import { Controls, Input } from './controls';
 import { IPiece } from './pieces/iPiece';
-import { Piece, Coordinates } from './pieces/piece';
-import { Board } from './board';
+import { OPiece } from './pieces/oPiece';
+import { Coordinates, Piece } from './pieces/piece';
 import { Utils } from './utils';
 
 export class Game {
@@ -18,7 +19,8 @@ export class Game {
     this.controls = new Controls();
     this.isPlaying = false;
 
-    this.board.drawGrid();
+    this.lastFrame = +new Date();
+    this.activePiece = new IPiece(this.ctx);
   }
 
   public start() {
@@ -37,7 +39,6 @@ export class Game {
 
     // Handle controls
     const lastInput = this.controls.getLastInput();
-    let nextCoords: Array<Coordinates>;
     let shouldRedraw = false;
     switch (lastInput) {
       case Input.Up:
@@ -45,22 +46,26 @@ export class Game {
         break;
       case Input.Left:
         // Move active piece
-        nextCoords = Utils.moveCoordsLeft(this.activePiece.getCoords());
-        if (!this.board.willHitLeftSide(nextCoords)) {
+        const leftCoords = Utils.moveCoordsLeft(this.activePiece.getCoords());
+        if (this.board.isLegalMove(leftCoords)) {
           this.activePiece.moveLeft();
           shouldRedraw = true;
         }
         break;
       case Input.Right:
         // Move active piece
-        nextCoords = Utils.moveCoordsRight(this.activePiece.getCoords());
-        if (!this.board.willHitRightSide(nextCoords)) {
+        const rightCoords = Utils.moveCoordsRight(this.activePiece.getCoords());
+        if (this.board.isLegalMove(rightCoords)) {
           this.activePiece.moveRight();
           shouldRedraw = true;
         }
         break;
       case Input.Down:
-        // Move active piece
+        const downCoords = Utils.moveCoordsDown(this.activePiece.getCoords());
+        if (this.board.isLegalMove(downCoords)) {
+          this.activePiece.moveDown();
+          shouldRedraw = true;
+        }
         break;
       case Input.Space:
         // Move active piece all the way down
@@ -70,16 +75,20 @@ export class Game {
     }
 
     if (delta >= 600) {
-      // console.log(delta);
       this.lastFrame = +new Date();
+      // console.log(delta);
+
       // Move piece down one
-      const currCoords = nextCoords || this.activePiece.getCoords();
-      nextCoords = Utils.moveCoordsDown(currCoords);
-      if (!this.board.willHitBottom(nextCoords)) {
+      const downCoords = Utils.moveCoordsDown(this.activePiece.getCoords());
+      if (this.board.isLegalMove(downCoords)) {
         this.activePiece.moveDown();
         shouldRedraw = true;
       } else {
         // save piece to board
+        for (const coord of this.activePiece.getCoords()) {
+          this.board.setSquare(coord.x, coord.y, 'blue');
+        }
+        this.activePiece = this.getNextPiece();
       }
     }
 
@@ -87,5 +96,17 @@ export class Game {
       this.activePiece.draw();
     }
     window.requestAnimationFrame(() => this.onFrame());
+  }
+
+  private getNextPiece(): Piece {
+    const randomNumer = Math.floor(Math.random() * 2) + 1;
+    switch (randomNumer) {
+      case 1:
+        return new IPiece(this.ctx);
+      case 2:
+        return new OPiece(this.ctx);
+      default:
+        return new OPiece(this.ctx);
+    }
   }
 }
