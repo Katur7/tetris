@@ -37,42 +37,7 @@ export class Game {
     const now = +new Date();
     const delta = now - this.lastFrame;
 
-    // Handle controls
-    const lastInput = this.controls.getLastInput();
-    let shouldRedraw = false;
-    switch (lastInput) {
-      case Input.Up:
-        // Rotate active piece
-        break;
-      case Input.Left:
-        // Move active piece
-        const leftCoords = Utils.moveCoordsLeft(this.activePiece.getCoords());
-        if (this.board.isLegalMove(leftCoords)) {
-          this.activePiece.moveLeft();
-          shouldRedraw = true;
-        }
-        break;
-      case Input.Right:
-        // Move active piece
-        const rightCoords = Utils.moveCoordsRight(this.activePiece.getCoords());
-        if (this.board.isLegalMove(rightCoords)) {
-          this.activePiece.moveRight();
-          shouldRedraw = true;
-        }
-        break;
-      case Input.Down:
-        const downCoords = Utils.moveCoordsDown(this.activePiece.getCoords());
-        if (this.board.isLegalMove(downCoords)) {
-          this.activePiece.moveDown();
-          shouldRedraw = true;
-        }
-        break;
-      case Input.Space:
-        // Move active piece all the way down
-        break;
-      default:
-        break;
-    }
+    let shouldRedraw = this.handleInput();
 
     if (delta >= 600) {
       this.lastFrame = +new Date();
@@ -96,6 +61,43 @@ export class Game {
       this.activePiece.draw();
     }
     window.requestAnimationFrame(() => this.onFrame());
+  }
+
+  private handleInput() {
+    const lastInput = this.controls.getLastInput();
+    let moved = false;
+    switch (lastInput) {
+      case Input.Up:
+        // Rotate active piece
+        break;
+      case Input.Left:
+        const leftCoords = Utils.moveCoordsLeft(this.activePiece.getCoords());
+        if (this.board.isLegalMove(leftCoords)) {
+          this.activePiece.moveLeft();
+          moved = true;
+        }
+        break;
+      case Input.Right:
+        const rightCoords = Utils.moveCoordsRight(this.activePiece.getCoords());
+        if (this.board.isLegalMove(rightCoords)) {
+          this.activePiece.moveRight();
+          moved = true;
+        }
+        break;
+      case Input.Down:
+        const downCoords = Utils.moveCoordsDown(this.activePiece.getCoords());
+        if (this.board.isLegalMove(downCoords)) {
+          this.activePiece.moveDown();
+          moved = true;
+        }
+        break;
+      case Input.Space:
+        // Move active piece all the way down
+        break;
+      default:
+        break;
+    }
+    return moved;
   }
 
   private getNextPiece(): Piece {
