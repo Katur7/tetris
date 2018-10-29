@@ -11,8 +11,8 @@ export class IPiece extends Piece {
   }
 
   public getCoords() {
-    const x = this.xCoord;
-    const y = this.yCoord;
+    const x = this.col;
+    const y = this.row;
     return  [
       {x, y},
       {x, y: y + 1},

@@ -1,5 +1,6 @@
 import { Board } from './board';
 import { Controls, Input } from './controls';
+import { NextPiece } from './nextPiece';
 import { IPiece } from './pieces/iPiece';
 import { OPiece } from './pieces/oPiece';
 import { Coordinates, Piece } from './pieces/piece';
@@ -8,19 +9,23 @@ import { Utils } from './utils';
 export class Game {
   private ctx: CanvasRenderingContext2D;
   private board: Board;
+  private nextPiece: NextPiece;
   private controls: Controls;
   private lastFrame: number;
   private isPlaying: boolean;
   private activePiece: Piece;
+  private score: number;
 
   constructor(ctx: CanvasRenderingContext2D) {
     this.ctx = ctx;
     this.board = new Board(ctx);
+    this.nextPiece = new NextPiece(ctx);
     this.controls = new Controls();
-    this.isPlaying = false;
 
+    this.isPlaying = false;
+    this.score = 0;
     this.lastFrame = +new Date();
-    this.activePiece = new IPiece(this.ctx);
+    this.activePiece = this.nextPiece.useNextPiece();
   }
 
   public start() {
@@ -29,7 +34,6 @@ export class Game {
     // start music
     this.lastFrame = +new Date();
     this.isPlaying = true;
-    this.activePiece = new IPiece(this.ctx);
     window.requestAnimationFrame(() => this.onFrame());
   }
 
@@ -56,7 +60,7 @@ export class Game {
 
         this.board.clearFilledRows();
 
-        this.activePiece = this.getNextPiece();
+        this.activePiece = this.nextPiece.useNextPiece();
       }
     }
 
@@ -101,17 +105,5 @@ export class Game {
         break;
     }
     return moved;
-  }
-
-  private getNextPiece(): Piece {
-    const randomNumer = Math.floor(Math.random() * 2) + 1;
-    switch (randomNumer) {
-      case 1:
-        return new IPiece(this.ctx);
-      case 2:
-        return new OPiece(this.ctx);
-      default:
-        return new OPiece(this.ctx);
-    }
   }
 }

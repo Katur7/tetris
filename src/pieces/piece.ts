@@ -3,13 +3,13 @@ import { Utils } from './../utils';
 export abstract class Piece {
   protected ctx: CanvasRenderingContext2D;
   // protected orientation: Orientation;
-  protected xCoord: number;
-  protected yCoord: number;
+  protected col: number;
+  protected row: number;
 
-  constructor(ctx: CanvasRenderingContext2D) {
+  constructor(col: number, row: number, ctx: CanvasRenderingContext2D) {
     this.ctx = ctx;
-    this.xCoord = 5;
-    this.yCoord = 0;
+    this.col = col;
+    this.row = row;
     this.draw();
   }
 
@@ -22,17 +22,17 @@ export abstract class Piece {
 
   public moveDown() {
     this.clear();
-    this.yCoord += 1;
+    this.row += 1;
   }
 
   public moveLeft() {
     this.clear();
-    this.xCoord -= 1;
+    this.col -= 1;
   }
 
   public moveRight() {
     this.clear();
-    this.xCoord += 1;
+    this.col += 1;
   }
 
   public abstract draw(): void;

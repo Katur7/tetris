@@ -18,8 +18,8 @@ export class OPiece extends Piece {
   }
 
   public getCoords() {
-    const x = this.xCoord;
-    const y = this.yCoord;
+    const x = this.col;
+    const y = this.row;
     return  [
       {x, y},
       {x: x + 1, y},
