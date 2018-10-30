@@ -79,7 +79,7 @@ export abstract class Piece {
       case Orientation.Left:
         return this.getLeftCoords();
       default:
-        throw new Error('Orientiation error: ' + o);
+        throw new Error('Orientiation not supported: ' + o);
     }
   }
 }

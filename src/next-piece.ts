@@ -32,8 +32,10 @@ export class NextPiece {
         return new IPiece(5, 0, this.gameCtx);
       case 'TPiece':
         return new TPiece(4, 0, this.gameCtx);
-      default:
+      case 'OPiece':
         return new OPiece(4, 0, this.gameCtx);
+      default:
+        throw new Error('Piece not supported: ' + nextPiece.constructor.name);
     }
   }
 
@@ -57,8 +59,10 @@ export class NextPiece {
         return new IPiece(1, 0, this.ctx);
       case 2:
         return new TPiece(0, 1, this.ctx);
-      default:
+      case 3:
         return new OPiece(0, 1, this.ctx);
+      default:
+        throw new Error('Random number not supported: ' + randomNumer);
     }
   }
 }
