@@ -1,6 +1,7 @@
 import { IPiece } from './pieces/i-piece';
 import { OPiece } from './pieces/o-piece';
 import { Piece } from './pieces/piece';
+import { TPiece } from './pieces/t-piece';
 
 export class NextPiece {
   private gameCtx: CanvasRenderingContext2D;
@@ -29,6 +30,8 @@ export class NextPiece {
     switch (nextPiece.constructor.name) {
       case 'IPiece':
         return new IPiece(5, 0, this.gameCtx);
+      case 'TPiece':
+        return new TPiece(4, 0, this.gameCtx);
       default:
         return new OPiece(4, 0, this.gameCtx);
     }
@@ -48,10 +51,12 @@ export class NextPiece {
   }
 
   private randomPiece(): Piece {
-    const randomNumer = Math.floor(Math.random() * 2) + 1;
+    const randomNumer = Math.floor(Math.random() * 3) + 1;
     switch (randomNumer) {
       case 1:
         return new IPiece(1, 0, this.ctx);
+      case 2:
+        return new TPiece(0, 1, this.ctx);
       default:
         return new OPiece(0, 1, this.ctx);
     }

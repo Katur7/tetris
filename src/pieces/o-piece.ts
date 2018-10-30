@@ -2,22 +2,11 @@ import { Utils } from '../utils';
 import { Piece } from './piece';
 
 export class OPiece extends Piece {
-  public draw() {
-    this.ctx.fillStyle = 'red';
-    const coords = this.getCoords();
-    for (const c of coords) {
-      Utils.drawSquare(c.x, c.y, this.ctx);
-    }
+  protected getColor() {
+    return 'red';
   }
 
-  public clear() {
-    const coords = this.getCoords();
-    for (const c of coords) {
-      Utils.clearSquare(c.x, c.y, this.ctx);
-    }
-  }
-
-  public getCoords() {
+  protected getUpCoords() {
     const x = this.col;
     const y = this.row;
     return  [
@@ -26,5 +15,17 @@ export class OPiece extends Piece {
       {x, y: y + 1},
       {x: x + 1, y: y + 1}
     ];
+  }
+
+  protected getRightCoords() {
+    return this.getUpCoords();
+  }
+
+  protected getDownCoords() {
+    return this.getUpCoords();
+  }
+
+  protected getLeftCoords() {
+    return this.getUpCoords();
   }
 }

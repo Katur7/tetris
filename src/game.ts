@@ -74,6 +74,11 @@ export class Game {
     switch (lastInput) {
       case Input.Up:
         // Rotate active piece
+        const rotatedCoords = this.activePiece.getRotatedCoords();
+        if (this.board.isLegalMove(rotatedCoords)) {
+          this.activePiece.rotate();
+          moved = true;
+        }
         break;
       case Input.Left:
         const leftCoords = Utils.moveCoordsLeft(this.activePiece.getCoords());

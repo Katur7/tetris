@@ -2,22 +2,37 @@ import { Utils } from '../utils';
 import { Piece } from './piece';
 
 export class IPiece extends Piece {
-  public draw() {
-    this.ctx.fillStyle = 'yellow';
-    const coords = this.getCoords();
-    for (const c of coords) {
-      Utils.drawSquare(c.x, c.y, this.ctx);
-    }
+  protected getColor() {
+    return 'yellow';
   }
 
-  public getCoords() {
+  protected getUpCoords() {
     const x = this.col;
     const y = this.row;
     return  [
-      {x, y},
-      {x, y: y + 1},
-      {x, y: y + 2},
-      {x, y: y + 3}
+      {x: x + 1, y},
+      {x: x + 1, y: y + 1},
+      {x: x + 1, y: y + 2},
+      {x: x + 1, y: y + 3}
     ];
+  }
+
+  protected getRightCoords() {
+    const x = this.col;
+    const y = this.row;
+    return  [
+      {x, y: y + 1},
+      {x: x + 1, y: y + 1},
+      {x: x + 2, y: y + 1},
+      {x: x + 3, y: y + 1}
+    ];
+  }
+
+  protected getDownCoords() {
+    return this.getUpCoords();
+  }
+
+  protected getLeftCoords() {
+    return this.getRightCoords();
   }
 }
