@@ -1,5 +1,5 @@
-import { IPiece } from './pieces/iPiece';
-import { OPiece } from './pieces/oPiece';
+import { IPiece } from './pieces/i-piece';
+import { OPiece } from './pieces/o-piece';
 import { Piece } from './pieces/piece';
 
 export class NextPiece {

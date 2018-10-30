@@ -1,5 +1,7 @@
 import { Board } from './board';
 import { Controls, Input } from './controls';
+import { NextPiece } from './next-piece';
+import { Piece } from './pieces/piece';
 import { Score } from './score';
 import { Utils } from './utils';
 
@@ -105,7 +107,7 @@ export class Game {
             moved = true;
           } else {
             // TODO: Lock piece?
-        break;
+            break;
           }
         }
       default:
