@@ -20,6 +20,10 @@ body {
   align-items: center;
   margin: 0 auto;
 
+  .scoreText {
+    width: 90px;
+  }
+
   canvas {
     margin-left: 20px;
   }

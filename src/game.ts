@@ -1,29 +1,24 @@
 import { Board } from './board';
 import { Controls, Input } from './controls';
-import { NextPiece } from './nextPiece';
-import { IPiece } from './pieces/iPiece';
-import { OPiece } from './pieces/oPiece';
-import { Coordinates, Piece } from './pieces/piece';
+import { Score } from './score';
 import { Utils } from './utils';
 
 export class Game {
-  private ctx: CanvasRenderingContext2D;
+  private score: Score;
   private board: Board;
   private nextPiece: NextPiece;
   private controls: Controls;
   private lastFrame: number;
   private isPlaying: boolean;
   private activePiece: Piece;
-  private score: number;
 
   constructor(ctx: CanvasRenderingContext2D) {
-    this.ctx = ctx;
+    this.score = new Score();
     this.board = new Board(ctx);
     this.nextPiece = new NextPiece(ctx);
     this.controls = new Controls();
 
     this.isPlaying = false;
-    this.score = 0;
     this.lastFrame = +new Date();
     this.activePiece = this.nextPiece.useNextPiece();
   }
@@ -58,7 +53,8 @@ export class Game {
           this.board.setSquare(coord.x, coord.y, 'blue');
         }
 
-        this.board.clearFilledRows();
+        const filledRows = this.board.clearFilledRows();
+        this.score.clearLineBonus(filledRows);
 
         this.activePiece = this.nextPiece.useNextPiece();
       }
@@ -95,12 +91,23 @@ export class Game {
         const downCoords = Utils.moveCoordsDown(this.activePiece.getCoords());
         if (this.board.isLegalMove(downCoords)) {
           this.activePiece.moveDown();
+          this.score.moveDownBonus();
           moved = true;
         }
         break;
       case Input.Space:
         // Move active piece all the way down
+        while (true) {
+          const spaceCoords = Utils.moveCoordsDown(this.activePiece.getCoords());
+          if (this.board.isLegalMove(spaceCoords)) {
+            this.activePiece.moveDown();
+            this.score.moveDownBonus();
+            moved = true;
+          } else {
+            // TODO: Lock piece?
         break;
+          }
+        }
       default:
         break;
     }
