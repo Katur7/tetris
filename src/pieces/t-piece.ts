@@ -1,6 +1,10 @@
-import { Piece } from './piece';
+import { Piece, PieceType } from './piece';
 
 export class TPiece extends Piece {
+  public getType(): PieceType {
+    return 'T';
+  }
+
   protected getColor() {
     return 'green';
   }

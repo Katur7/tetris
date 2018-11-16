@@ -27,15 +27,15 @@ export class NextPiece {
     const nextPiece = this.nextPiece;
     this.nextPiece.clear();
     this.nextPiece = this.randomPiece();
-    switch (nextPiece.constructor.name) {
-      case 'IPiece':
+    switch (nextPiece.getType()) {
+      case 'I':
         return new IPiece(5, 0, this.gameCtx);
-      case 'TPiece':
+      case 'T':
         return new TPiece(4, 0, this.gameCtx);
-      case 'OPiece':
+      case 'O':
         return new OPiece(4, 0, this.gameCtx);
       default:
-        throw new Error('Piece not supported: ' + nextPiece.constructor.name);
+        throw new Error('Piece not supported: ' + nextPiece.constructor);
     }
   }
 
@@ -56,7 +56,7 @@ export class NextPiece {
     const randomNumer = Math.floor(Math.random() * 3) + 1;
     switch (randomNumer) {
       case 1:
-        return new IPiece(1, 0, this.ctx);
+        return new IPiece(0, 0, this.ctx);
       case 2:
         return new TPiece(0, 1, this.ctx);
       case 3:

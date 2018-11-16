@@ -58,6 +58,8 @@ export abstract class Piece {
     }
   }
 
+  public abstract getType(): PieceType;
+
   protected getRotatedOrientation() {
     return (this.orientation + 1) % 4;
   }
@@ -95,3 +97,5 @@ export interface Coordinates {
   x: number;
   y: number;
 }
+
+export type PieceType = 'I' | 'O' | 'T' | 'J' | 'L' | 'Z' | 'N';

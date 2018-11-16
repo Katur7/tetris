@@ -1,7 +1,10 @@
-import { Utils } from '../utils';
-import { Piece } from './piece';
+import { Piece, PieceType } from './piece';
 
 export class IPiece extends Piece {
+  public getType(): PieceType {
+    return 'I';
+  }
+
   protected getColor() {
     return 'yellow';
   }
