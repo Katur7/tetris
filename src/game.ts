@@ -38,9 +38,13 @@ export class Game {
     const now = +new Date();
     const delta = now - this.lastFrame;
 
-    let shouldRedraw = this.handleInput();
+    const { moved, lock } = this.handleInput();
+    let shouldRedraw = moved;
 
-    if (delta >= 600) {
+    if (lock) {
+      this.lastFrame = +new Date();
+      this.savePieceToBoard();
+    } else if (delta >= 600) {
       this.lastFrame = +new Date();
       // console.log(delta);
 
@@ -50,15 +54,7 @@ export class Game {
         this.activePiece.moveDown();
         shouldRedraw = true;
       } else {
-        // save piece to board
-        for (const coord of this.activePiece.getCoords()) {
-          this.board.setSquare(coord.x, coord.y, 'blue');
-        }
-
-        const filledRows = this.board.clearFilledRows();
-        this.score.clearLineBonus(filledRows);
-
-        this.activePiece = this.nextPiece.useNextPiece();
+        this.savePieceToBoard();
       }
     }
 
@@ -71,6 +67,7 @@ export class Game {
   private handleInput() {
     const lastInput = this.controls.getLastInput();
     let moved = false;
+    let lock = false;
     switch (lastInput) {
       case Input.Up:
         // Rotate active piece
@@ -110,6 +107,7 @@ export class Game {
             this.activePiece.moveDown();
             this.score.moveDownBonus();
             moved = true;
+            lock = true;
           } else {
             // TODO: Lock piece?
             break;
@@ -118,6 +116,17 @@ export class Game {
       default:
         break;
     }
-    return moved;
+    return { moved, lock };
+  }
+
+  private savePieceToBoard() {
+    for (const coord of this.activePiece.getCoords()) {
+      this.board.setSquare(coord.x, coord.y, 'blue');
+    }
+
+    const filledRows = this.board.clearFilledRows();
+    this.score.clearLineBonus(filledRows);
+
+    this.activePiece = this.nextPiece.useNextPiece();
   }
 }
