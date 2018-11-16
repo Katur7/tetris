@@ -59,6 +59,7 @@ export abstract class Piece {
   }
 
   abstract getType(): PieceType;
+  abstract getColor(): string;
 
   protected getRotatedOrientation() {
     return (this.orientation + 1) % 4;
@@ -68,7 +69,6 @@ export abstract class Piece {
   protected abstract getRightCoords(): Coordinates[];
   protected abstract getDownCoords(): Coordinates[];
   protected abstract getLeftCoords(): Coordinates[];
-  protected abstract getColor(): string;
 
   private getCoordsFromOrientation(o: Orientation) {
     switch (o) {

@@ -121,7 +121,7 @@ export class Game {
 
   private savePieceToBoard() {
     for (const coord of this.activePiece.getCoords()) {
-      this.board.setSquare(coord.x, coord.y, 'blue');
+      this.board.setSquare(coord.x, coord.y, this.activePiece.getColor());
     }
 
     const filledRows = this.board.clearFilledRows();

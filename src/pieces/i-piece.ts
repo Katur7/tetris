@@ -5,7 +5,7 @@ export class IPiece extends Piece {
     return 'I';
   }
 
-  protected getColor() {
+  getColor() {
     return 'yellow';
   }
 

@@ -5,7 +5,7 @@ export class OPiece extends Piece {
     return 'O';
   }
 
-  protected getColor() {
+  getColor() {
     return 'red';
   }
 
