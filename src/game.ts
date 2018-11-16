@@ -101,18 +101,16 @@ export class Game {
         break;
       case Input.Space:
         // Move active piece all the way down
-        while (true) {
-          const spaceCoords = Utils.moveCoordsDown(this.activePiece.getCoords());
-          if (this.board.isLegalMove(spaceCoords)) {
-            this.activePiece.moveDown();
-            this.score.moveDownBonus();
-            moved = true;
-            lock = true;
-          } else {
-            // TODO: Lock piece?
-            break;
-          }
+        moved = true;
+        lock = true;
+
+        let spaceCoords = Utils.moveCoordsDown(this.activePiece.getCoords());
+        while (this.board.isLegalMove(spaceCoords)) {
+          this.activePiece.moveDown();
+          this.score.moveDownBonus();
+          spaceCoords = Utils.moveCoordsDown(this.activePiece.getCoords());
         }
+        break;
       default:
         break;
     }
