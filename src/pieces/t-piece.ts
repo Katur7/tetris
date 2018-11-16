@@ -1,7 +1,7 @@
 import { Piece, PieceType } from './piece';
 
 export class TPiece extends Piece {
-  public getType(): PieceType {
+  getType(): PieceType {
     return 'T';
   }
 

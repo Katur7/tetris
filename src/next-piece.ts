@@ -23,7 +23,7 @@ export class NextPiece {
     this.drawBackground();
   }
 
-  public useNextPiece() {
+  useNextPiece() {
     const nextPiece = this.nextPiece;
     this.nextPiece.clear();
     this.nextPiece = this.randomPiece();

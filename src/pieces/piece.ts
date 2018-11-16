@@ -14,43 +14,43 @@ export abstract class Piece {
     this.draw();
   }
 
-  public clear() {
+  clear() {
     const coords = this.getCoords();
     for (const c of coords) {
       Utils.clearSquare(c.x, c.y, this.ctx);
     }
   }
 
-  public moveDown() {
+  moveDown() {
     this.clear();
     this.row += 1;
   }
 
-  public moveLeft() {
+  moveLeft() {
     this.clear();
     this.col -= 1;
   }
 
-  public moveRight() {
+  moveRight() {
     this.clear();
     this.col += 1;
   }
 
-  public rotate() {
+  rotate() {
     this.clear();
     this.orientation = this.getRotatedOrientation();
   }
 
-  public getCoords(): Coordinates[] {
+  getCoords(): Coordinates[] {
     return this.getCoordsFromOrientation(this.orientation);
   }
 
-  public getRotatedCoords(): Coordinates[] {
+  getRotatedCoords(): Coordinates[] {
     const nextOrientation = this.getRotatedOrientation();
     return this.getCoordsFromOrientation(nextOrientation);
   }
 
-  public draw() {
+  draw() {
     this.ctx.fillStyle = this.getColor();
     const coords = this.getCoords();
     for (const c of coords) {
@@ -58,7 +58,7 @@ export abstract class Piece {
     }
   }
 
-  public abstract getType(): PieceType;
+  abstract getType(): PieceType;
 
   protected getRotatedOrientation() {
     return (this.orientation + 1) % 4;

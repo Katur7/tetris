@@ -25,7 +25,7 @@ export class Game {
     this.activePiece = this.nextPiece.useNextPiece();
   }
 
-  public start() {
+  start() {
     // reset board
 
     // start music
@@ -34,7 +34,7 @@ export class Game {
     window.requestAnimationFrame(() => this.onFrame());
   }
 
-  public onFrame() {
+  onFrame() {
     const now = +new Date();
     const delta = now - this.lastFrame;
 

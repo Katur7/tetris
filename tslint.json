@@ -11,6 +11,7 @@
             true,
             "spaces"
         ],
+        "member-access": [true, "no-public"],
         "no-eval": true,
         "no-internal-module": true,
         "no-trailing-whitespace": true,
