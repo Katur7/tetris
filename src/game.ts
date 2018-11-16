@@ -40,10 +40,12 @@ export class Game {
 
     const { moved, lock } = this.handleInput();
     let shouldRedraw = moved;
+    let getNewPiece = false;
 
     if (lock) {
       this.lastFrame = +new Date();
       this.savePieceToBoard();
+      getNewPiece = true;
     } else if (delta >= 600) {
       this.lastFrame = +new Date();
       // console.log(delta);
@@ -55,10 +57,18 @@ export class Game {
         shouldRedraw = true;
       } else {
         this.savePieceToBoard();
+        getNewPiece = true;
       }
     }
 
-    if (shouldRedraw) {
+    if (getNewPiece) {
+      this.activePiece = this.nextPiece.useNextPiece();
+      if (this.isGameOver(this.activePiece)) {
+        // End game
+        this.board.gameOver();
+        return;
+      }
+    } else if (shouldRedraw) {
       this.activePiece.draw();
     }
     window.requestAnimationFrame(() => this.onFrame());
@@ -124,7 +134,10 @@ export class Game {
 
     const filledRows = this.board.clearFilledRows();
     this.score.clearLineBonus(filledRows);
+  }
 
-    this.activePiece = this.nextPiece.useNextPiece();
+  private isGameOver(nextPiece: Piece) {
+    const coords = nextPiece.getCoords();
+    return !this.board.isLegalMove(coords);
   }
 }

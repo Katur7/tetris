@@ -59,6 +59,10 @@ export class Board {
     return filledRows;
   }
 
+  gameOver() {
+    Utils.drawGameOver(this.ctx);
+  }
+
   private clearRow(rowIndex: number) {
     for (let i = 0; i < 10; i++) {
       this.clearSquare(i, rowIndex);

@@ -41,4 +41,15 @@ export class Utils {
       return { x: c.x + 1, y: c.y };
     });
   }
+
+  static drawGameOver(ctx: CanvasRenderingContext2D) {
+    ctx.fillStyle = 'grey';
+    ctx.globalAlpha = 0.5;
+    ctx.fillRect(50, 50, 310, 720);
+    ctx.globalAlpha = 1.0;
+
+    ctx.fillStyle = 'black';
+    ctx.font = '50px Arial';
+    ctx.fillText('Game over', 75, 411);
+  }
 }
