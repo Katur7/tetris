@@ -27,7 +27,8 @@ export class NextPiece {
     const nextPiece = this.nextPiece;
     this.nextPiece.clear();
     this.nextPiece = this.randomPiece();
-    switch (nextPiece.getType()) {
+    const type = nextPiece.getType();
+    switch (type) {
       case 'I':
         return new IPiece(5, 0, this.gameCtx);
       case 'T':
@@ -35,7 +36,7 @@ export class NextPiece {
       case 'O':
         return new OPiece(4, 0, this.gameCtx);
       default:
-        throw new Error('Piece not supported: ' + nextPiece.constructor);
+        throw new Error('Piece not supported: ' + type);
     }
   }
 
