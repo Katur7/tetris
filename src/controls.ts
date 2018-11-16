@@ -25,7 +25,7 @@ export class Controls {
     });
   }
 
-  public getLastInput() {
+  getLastInput() {
     const last = this.lastInput;
     this.lastInput = undefined;
     return last;

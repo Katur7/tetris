@@ -13,7 +13,7 @@ export class Board {
     this.drawGrid();
   }
 
-  public setSquare(col: number, row: number, color: string) {
+  setSquare(col: number, row: number, color: string) {
     const square = this.getSquare(col, row);
     square.filled = true;
     square.color = color;
@@ -21,14 +21,14 @@ export class Board {
     Utils.drawSquare(col, row, this.ctx);
   }
 
-  public clearSquare(col: number, row: number) {
+  clearSquare(col: number, row: number) {
     const square = this.getSquare(col, row);
     square.filled = false;
     square.color = undefined;
     Utils.clearSquare(col, row, this.ctx);
   }
 
-  public isLegalMove(nextCoords: Coordinates[]) {
+  isLegalMove(nextCoords: Coordinates[]) {
     const willHitBottom = this.willHitBottom(nextCoords);
     const willHitLeftSide = this.willHitLeftSide(nextCoords);
     const willHitRightSide = this.willHitRightSide(nextCoords);
@@ -43,7 +43,7 @@ export class Board {
     }
   }
 
-  public clearFilledRows() {
+  clearFilledRows() {
     let filledRows = 0;
     for (let i = 0; i < 20; i++) {
       const row = this.board[i];

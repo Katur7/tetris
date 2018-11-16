@@ -8,12 +8,12 @@ export class Score {
     this.updateScore();
   }
 
-  public clearLineBonus(clearedLines: number) {
+  clearLineBonus(clearedLines: number) {
     this.score += 100 * clearedLines;
     this.updateScore();
   }
 
-  public moveDownBonus() {
+  moveDownBonus() {
     this.score += 10;
     this.updateScore();
   }
