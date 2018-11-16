@@ -11,19 +11,10 @@ if (ctx === null) {
 const game = new Game(ctx);
 game.start();
 
-// drawTPiece(0, 0);
 // drawJPiece(1, 4);
 // drawLPiece(4, 4);
 // drawZPiece(1, 8);
 // drawNPiece(5, 8);
-
-// function drawTPiece(col: number, row: number) {
-//   ctx.fillStyle = 'green';
-//   drawSquare(col, row);
-//   drawSquare(col, row + 1);
-//   drawSquare(col, row + 2);
-//   drawSquare(col + 1, row + 1);
-// }
 
 // function drawJPiece(col: number, row: number) {
 //   ctx.fillStyle = 'blue';
