@@ -9,7 +9,7 @@ if (ctx === null) {
 }
 
 const game = new Game(ctx);
-game.start();
+
 
 // drawJPiece(1, 4);
 // drawLPiece(4, 4);

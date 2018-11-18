@@ -11,7 +11,6 @@ export abstract class Piece {
     this.col = col;
     this.row = row;
     this.orientation = Orientation.Up;
-    this.draw();
   }
 
   clear() {

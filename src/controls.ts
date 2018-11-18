@@ -1,6 +1,9 @@
 export class Controls {
   private lastInput: Input | undefined;
+  private resolveSpace: VoidFunction | undefined;
   constructor() {
+    this.resolveSpace = undefined;
+
     // Set up key listeners
     document.addEventListener('keydown', event => {
       switch (event.key) {
@@ -18,6 +21,11 @@ export class Controls {
           break;
         case ' ':
           this.lastInput = Input.Space;
+          if (this.resolveSpace !== undefined) {
+            this.resolveSpace();
+            this.resolveSpace = undefined;
+            this.lastInput = undefined;
+          }
           break;
         default:
           break;
@@ -30,6 +38,12 @@ export class Controls {
     this.lastInput = undefined;
     return last;
   }
+
+  awaitSpace() {
+    return new Promise(resolve => {
+      this.resolveSpace = resolve;
+    });
+  }
 }
 
 export enum Input {
@@ -39,3 +53,5 @@ export enum Input {
   Right,
   Space
 }
+
+type VoidFunction = () => void;

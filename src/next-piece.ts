@@ -6,7 +6,7 @@ import { TPiece } from './pieces/t-piece';
 export class NextPiece {
   private gameCtx: CanvasRenderingContext2D;
   private ctx: CanvasRenderingContext2D;
-  private nextPiece: Piece;
+  private nextPiece!: Piece;
 
   constructor(ctx: CanvasRenderingContext2D) {
     this.gameCtx = ctx;
@@ -19,14 +19,14 @@ export class NextPiece {
       throw new Error('NextPiece context not found');
     }
 
-    this.nextPiece = this.randomPiece();
+    this.getNextPiece();
     this.drawBackground();
   }
 
   useNextPiece() {
     const nextPiece = this.nextPiece;
     this.nextPiece.clear();
-    this.nextPiece = this.randomPiece();
+    this.getNextPiece();
     const type = nextPiece.getType();
     switch (type) {
       case 'I':
@@ -51,6 +51,11 @@ export class NextPiece {
     this.ctx.lineTo(0.5, 164.5);
     this.ctx.closePath();
     this.ctx.stroke();
+  }
+
+  private getNextPiece() {
+    this.nextPiece = this.randomPiece();
+    this.nextPiece.draw();
   }
 
   private randomPiece(): Piece {

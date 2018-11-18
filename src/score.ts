@@ -1,11 +1,10 @@
 export class Score {
   private scoreEl: HTMLSpanElement;
-  private score: number;
+  private score!: number;
 
   constructor() {
     this.scoreEl = document.getElementById('score') as HTMLSpanElement;
-    this.score = 0;
-    this.updateScore();
+    this.resetScore();
   }
 
   clearLineBonus(clearedLines: number) {
@@ -15,6 +14,11 @@ export class Score {
 
   moveDownBonus() {
     this.score += 10;
+    this.updateScore();
+  }
+
+  resetScore() {
+    this.score = 0;
     this.updateScore();
   }
 

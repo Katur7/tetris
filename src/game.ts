@@ -11,8 +11,7 @@ export class Game {
   private nextPiece: NextPiece;
   private controls: Controls;
   private lastFrame: number;
-  private isPlaying: boolean;
-  private activePiece: Piece;
+  private activePiece!: Piece;
 
   constructor(ctx: CanvasRenderingContext2D) {
     this.score = new Score();
@@ -20,17 +19,19 @@ export class Game {
     this.nextPiece = new NextPiece(ctx);
     this.controls = new Controls();
 
-    this.isPlaying = false;
     this.lastFrame = +new Date();
-    this.activePiece = this.nextPiece.useNextPiece();
+    this.start();
   }
 
   start() {
-    // reset board
+    this.board.clearBoard();
+    this.score.resetScore();
+
+    this.activePiece = this.nextPiece.useNextPiece();
+    this.activePiece.draw();
 
     // start music
     this.lastFrame = +new Date();
-    this.isPlaying = true;
     window.requestAnimationFrame(() => this.onFrame());
   }
 
@@ -64,13 +65,16 @@ export class Game {
     if (getNewPiece) {
       this.activePiece = this.nextPiece.useNextPiece();
       if (this.isGameOver(this.activePiece)) {
-        // End game
-        this.board.gameOver();
+        this.gameOver();
         return;
+      } else {
+        this.activePiece.draw();
       }
+
     } else if (shouldRedraw) {
       this.activePiece.draw();
     }
+
     window.requestAnimationFrame(() => this.onFrame());
   }
 
@@ -139,5 +143,13 @@ export class Game {
   private isGameOver(nextPiece: Piece) {
     const coords = nextPiece.getCoords();
     return !this.board.isLegalMove(coords);
+  }
+
+  private gameOver() {
+    this.board.gameOver();
+    this.controls.awaitSpace()
+    .then(() => {
+      this.start();
+    });
   }
 }

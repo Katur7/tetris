@@ -8,9 +8,6 @@ export class Board {
   constructor(ctx: CanvasRenderingContext2D) {
     this.ctx = ctx;
     this.board = [];
-
-    this.initializeBoard();
-    this.drawGrid();
   }
 
   setSquare(col: number, row: number, color: string) {
@@ -61,6 +58,12 @@ export class Board {
 
   gameOver() {
     Utils.drawGameOver(this.ctx);
+  }
+
+  clearBoard() {
+    this.ctx.clearRect(0 , 0, Utils.WIDTH, Utils.HEIGHT);
+    this.initializeBoard();
+    this.drawGrid();
   }
 
   private clearRow(rowIndex: number) {
