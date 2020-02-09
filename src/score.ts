@@ -1,11 +1,11 @@
 export class Score {
-  level = 1;
+  level!: number;
 
   private scoreEl: HTMLSpanElement;
   private levelEl: HTMLSpanElement;
   private linesEl: HTMLSpanElement;
   private score!: number;
-  private lines = 0;
+  private lines!: number;
 
   constructor() {
     this.scoreEl = document.getElementById('score') as HTMLSpanElement;
@@ -29,9 +29,9 @@ export class Score {
   }
 
   resetScore() {
+    this.level = 1;
     this.score = 0;
     this.lines = 0;
-    this.level = 1;
     this.updateScore();
   }
 
