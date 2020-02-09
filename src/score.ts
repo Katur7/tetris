@@ -1,5 +1,4 @@
 export class Score {
-  // TODO: display level and lines
   level = 1;
 
   private scoreEl: HTMLSpanElement;
