@@ -64,12 +64,15 @@ export class Board {
     this.ctx.globalAlpha = 1.0;
 
     // Text
+    this.ctx.textAlign = 'center';
     this.ctx.fillStyle = 'black';
-    this.ctx.font = '50px Arial';
-    this.ctx.fillText('Tetris', 140, 400);
+    this.ctx.font = '40px Bungee';
+    this.ctx.fillText('Tetris', 200, 300);
+    this.ctx.font = '15px Bungee';
+    this.ctx.fillText('By Katur', 200, 330);
 
-    this.ctx.font = '20px Arial';
-    this.ctx.fillText('Press space to start a new game', 60, 480);
+    this.ctx.font = '15px Bungee';
+    this.ctx.fillText('Press space to start a new game', 200, 500);
   }
 
   gameOver() {
@@ -80,12 +83,13 @@ export class Board {
     this.ctx.globalAlpha = 1.0;
 
     // Text
+    this.ctx.textAlign = 'center';
     this.ctx.fillStyle = 'black';
-    this.ctx.font = '50px Arial';
-    this.ctx.fillText('Game over', 75, 400);
+    this.ctx.font = '40px Bungee';
+    this.ctx.fillText('Game over', 200, 350);
 
-    this.ctx.font = '20px Arial';
-    this.ctx.fillText('Press space to start a new game', 60, 480);
+    this.ctx.font = '15px Bungee';
+    this.ctx.fillText('Press space to start a new game', 200, 480);
   }
 
   clearBoard() {
