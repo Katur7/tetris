@@ -14,7 +14,6 @@ export class IPiece extends Piece {
       {x: x + 2, y: y + 1},
       {x: x + 3, y: y + 1}
     ];
-    
   }
 
   protected getRightCoords() {

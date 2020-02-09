@@ -46,7 +46,7 @@ export class PiecePreview {
         piece = new ZPiece(0.75, 0.75, this.ctx);
         break;
       default:
-        throw new Error('PieceType not supported: ' + pieceType);;
+        throw new Error('PieceType not supported: ' + pieceType);
     }
     piece.draw();
   }

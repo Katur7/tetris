@@ -83,7 +83,7 @@ export class Game {
     }
 
     if (getNewPiece) {
-      this.setNextPiece()
+      this.setNextPiece();
       if (this.isGameOver(this.activePiece)) {
         this.gameOver();
         return;
@@ -190,7 +190,7 @@ export class Game {
       case 'L':
         return new LPiece(3, 0, this.ctx);
       case 'O':
-        return new OPiece(4, 0, this.ctx)
+        return new OPiece(4, 0, this.ctx);
       case 'S':
         return new SPiece(3, 0, this.ctx);
       case 'T':
@@ -198,7 +198,7 @@ export class Game {
       case 'Z':
         return new ZPiece(3, 0, this.ctx);
       default:
-        throw new Error('PieceType not supported: ' + type);;
+        throw new Error('PieceType not supported: ' + type);
     }
   }
 

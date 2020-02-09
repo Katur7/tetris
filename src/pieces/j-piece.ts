@@ -9,7 +9,7 @@ export class JPiece extends Piece {
     const x = this.col;
     const y = this.row;
     return  [
-      {x, y: y},
+      {x, y},
       {x, y: y + 1},
       {x: x + 1, y: y + 1},
       {x: x + 2, y: y + 1}
