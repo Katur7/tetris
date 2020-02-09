@@ -21,7 +21,7 @@ export class Game {
   private pieceService: PieceService;
 
   private ctx: CanvasRenderingContext2D;
-  private lastFrame!: number;
+  private lastGameTick: number | undefined;
   private activePiece!: Piece;
   private nextPiece: PieceType;
 
@@ -51,24 +51,23 @@ export class Game {
     this.setNextPiece();
 
     // TODO: start music
-    this.lastFrame = +new Date();
-    window.requestAnimationFrame(() => this.onFrame());
+    window.requestAnimationFrame((time) => this.onFrame(time));
   }
 
-  onFrame() {
-    const now = +new Date();
-    const delta = now - this.lastFrame;
+  onFrame(timestamp: number) {
+    if(!this.lastGameTick) this.lastGameTick = timestamp;
+    const delta = timestamp - this.lastGameTick;
 
     const { moved, lock } = this.handleInput();
     let shouldRedraw = moved;
     let getNewPiece = false;
 
     if (lock) {
-      this.lastFrame = +new Date();
+      this.lastGameTick = timestamp;
       this.savePieceToBoard();
       getNewPiece = true;
     } else if (delta >= this.dropTime()) {
-      this.lastFrame = +new Date();
+      this.lastGameTick = timestamp;
       // console.log(delta);
 
       // Move piece down one
@@ -94,7 +93,7 @@ export class Game {
       this.activePiece.draw();
     }
 
-    window.requestAnimationFrame(() => this.onFrame());
+    window.requestAnimationFrame((time) => this.onFrame(time));
   }
 
   private handleInput() {
