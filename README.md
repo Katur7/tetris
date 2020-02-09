@@ -1,4 +1,5 @@
-# Tetris
+# Tetris clone
+Demo: https://youthful-roentgen-e63d3c.netlify.com
 
 ## Installation
 1. Clone/download repo
