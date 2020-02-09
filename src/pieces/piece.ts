@@ -6,11 +6,11 @@ export abstract class Piece {
   protected col: number;
   protected row: number;
 
-  constructor(col: number, row: number, ctx: CanvasRenderingContext2D) {
+  constructor(col: number, row: number, ctx: CanvasRenderingContext2D, orientation?: Orientation) {
     this.ctx = ctx;
     this.col = col;
     this.row = row;
-    this.orientation = Orientation.Up;
+    this.orientation = orientation || Orientation.Up;
   }
 
   clear() {

@@ -1,4 +1,4 @@
-export { Piece, PieceType, Coordinates } from './piece';
+export { Piece, PieceType, Coordinates, Orientation } from './piece';
 
 export { IPiece } from './i-piece';
 export { JPiece } from './j-piece';

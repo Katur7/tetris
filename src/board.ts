@@ -1,4 +1,5 @@
-import { Coordinates } from './pieces/piece';
+import { Coordinates, Orientation } from './pieces';
+import { IPiece, JPiece, LPiece, OPiece, SPiece, TPiece, ZPiece } from './pieces';
 import { Utils } from './utils';
 
 export class Board {
@@ -57,10 +58,12 @@ export class Board {
   }
 
   startMessage() {
+    this.fillBoard();
+
     // Background
     this.ctx.fillStyle = 'grey';
-    this.ctx.globalAlpha = 0.5;
-    this.ctx.fillRect(50, 50, 310, 720);
+    this.ctx.globalAlpha = 0.6;
+    this.ctx.fillRect(45, 45, 310, 710);
     this.ctx.globalAlpha = 1.0;
 
     // Text
@@ -78,8 +81,8 @@ export class Board {
   gameOver() {
     // Background
     this.ctx.fillStyle = 'grey';
-    this.ctx.globalAlpha = 0.5;
-    this.ctx.fillRect(50, 50, 310, 720);
+    this.ctx.globalAlpha = 0.6;
+    this.ctx.fillRect(45, 45, 310, 710);
     this.ctx.globalAlpha = 1.0;
 
     // Text
@@ -172,6 +175,60 @@ export class Board {
     } else {
       throw new Error('Row not initialized');
     }
+  }
+
+  private fillBoard() {
+    new JPiece(0, 18, this.ctx).draw();
+    new OPiece(1, 17, this.ctx).draw();
+    new IPiece(6, 18, this.ctx).draw();
+    new ZPiece(0, 15, this.ctx, Orientation.Right).draw();
+    new IPiece(2, 16, this.ctx, Orientation.Right).draw();
+    new SPiece(4, 18, this.ctx).draw();
+    new TPiece(1, 14, this.ctx, Orientation.Right).draw();
+    new LPiece(4, 17, this.ctx, Orientation.Down).draw();
+    new TPiece(7, 17, this.ctx).draw();
+    new JPiece(5, 16, this.ctx, Orientation.Down).draw();
+    new ZPiece(4, 14, this.ctx, Orientation.Right).draw();
+    new SPiece(8, 15, this.ctx, Orientation.Right).draw();
+    new OPiece(6, 14, this.ctx).draw();
+    new OPiece(3, 13, this.ctx).draw();
+    new IPiece(8, 12, this.ctx, Orientation.Right).draw();
+    new JPiece(6, 13, this.ctx, Orientation.Down).draw();
+    new TPiece(4, 11, this.ctx, Orientation.Down).draw();
+    new TPiece(-1, 13, this.ctx, Orientation.Right).draw();
+    new LPiece(0, 11, this.ctx, Orientation.Right).draw();
+    new JPiece(-1, 10, this.ctx, Orientation.Right).draw();
+    new SPiece(2, 11, this.ctx).draw();
+    new SPiece(7, 11, this.ctx).draw();
+    new LPiece(5, 10, this.ctx).draw();
+    new ZPiece(2, 9, this.ctx, Orientation.Right).draw();
+    new OPiece(8, 9, this.ctx).draw();
+    new JPiece(4, 9, this.ctx).draw();
+    new ZPiece(4, 8, this.ctx).draw();
+    new TPiece(0, 8, this.ctx).draw();
+    new ZPiece(0, 6, this.ctx, Orientation.Right).draw();
+    new LPiece(3, 7, this.ctx, Orientation.Down).draw();
+    new SPiece(6, 7, this.ctx, Orientation.Right).draw();
+    new TPiece(7, 6, this.ctx, Orientation.Left).draw();
+    new IPiece(8, 5, this.ctx, Orientation.Right).draw();
+    new JPiece(1, 6, this.ctx, Orientation.Right).draw();
+    new IPiece(4, 5, this.ctx).draw();
+    new IPiece(-1, 3, this.ctx, Orientation.Right).draw();
+    new TPiece(1, 4, this.ctx).draw();
+    new OPiece(4, 4, this.ctx).draw();
+    new OPiece(7, 4, this.ctx).draw();
+    new ZPiece(1, 2, this.ctx, Orientation.Right).draw();
+    new LPiece(3, 3, this.ctx, Orientation.Down).draw();
+    new JPiece(5, 3, this.ctx, Orientation.Right).draw();
+    new SPiece(8, 2, this.ctx, Orientation.Right).draw();
+    new LPiece(-1, 0, this.ctx, Orientation.Right).draw();
+    new OPiece(1, 0, this.ctx).draw();
+    new TPiece(8, 0, this.ctx, Orientation.Left).draw();
+    new IPiece(4, 1, this.ctx).draw();
+    new SPiece(6, 0, this.ctx).draw();
+    new ZPiece(5, -1, this.ctx, Orientation.Right).draw();
+    new TPiece(2, 0, this.ctx, Orientation.Right).draw();
+    new JPiece(2, -1, this.ctx, Orientation.Down).draw();
   }
 }
 
