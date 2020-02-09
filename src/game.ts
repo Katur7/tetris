@@ -67,7 +67,7 @@ export class Game {
       this.lastFrame = +new Date();
       this.savePieceToBoard();
       getNewPiece = true;
-    } else if (delta >= 600) {
+    } else if (delta >= this.dropTime()) {
       this.lastFrame = +new Date();
       // console.log(delta);
 
@@ -157,8 +157,8 @@ export class Game {
 
     const filledRows = this.board.clearFilledRows();
     if(filledRows > 0) {
-    this.score.clearLineBonus(filledRows);
-  }
+      this.score.clearLineBonus(filledRows);
+    }
   }
 
   private isGameOver(nextPiece: Piece) {
@@ -199,6 +199,15 @@ export class Game {
         return new ZPiece(3, 0, this.ctx);
       default:
         throw new Error('PieceType not supported: ' + type);;
+    }
+  }
+
+  private dropTime() {
+    const level = this.score.level;
+    if(level < 10) {
+      return 600 - (50 * (level - 1));
+    } else {
+      return 200 - (10 * (level - 9));
     }
   }
 }
