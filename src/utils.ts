@@ -41,20 +41,4 @@ export class Utils {
       return { x: c.x + 1, y: c.y };
     });
   }
-
-  static drawGameOver(ctx: CanvasRenderingContext2D) {
-    // Background
-    ctx.fillStyle = 'grey';
-    ctx.globalAlpha = 0.5;
-    ctx.fillRect(50, 50, 310, 720);
-    ctx.globalAlpha = 1.0;
-
-    // Text
-    ctx.fillStyle = 'black';
-    ctx.font = '50px Arial';
-    ctx.fillText('Game over', 75, 400);
-
-    ctx.font = '20px Arial';
-    ctx.fillText('Press space to start a new game', 60, 480);
-  }
 }
