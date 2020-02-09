@@ -47,7 +47,7 @@ export class Game {
     this.setNextPiece();
 
     // TODO: start music
-    window.requestAnimationFrame((time) => this.onFrame(time));
+    window.requestAnimationFrame(time => this.onFrame(time));
   }
 
   onFrame(timestamp: number) {
@@ -89,7 +89,7 @@ export class Game {
       this.activePiece.draw();
     }
 
-    window.requestAnimationFrame((time) => this.onFrame(time));
+    window.requestAnimationFrame(time => this.onFrame(time));
   }
 
   private handleInput(timestamp: number) {
