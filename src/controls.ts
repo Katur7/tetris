@@ -1,41 +1,21 @@
 export class Controls {
-  private lastInput: Input | undefined;
   private resolveSpace: VoidFunction | undefined;
+  private pressedKeys: Set<Input>;
+
   constructor() {
     this.resolveSpace = undefined;
+    this.pressedKeys = new Set<Input>();
 
     // Set up key listeners
-    document.addEventListener('keydown', event => {
-      switch (event.key) {
-        case 'ArrowUp':
-          this.lastInput = Input.Up;
-          break;
-        case 'ArrowDown':
-          this.lastInput = Input.Down;
-          break;
-        case 'ArrowLeft':
-          this.lastInput = Input.Left;
-          break;
-        case 'ArrowRight':
-          this.lastInput = Input.Right;
-          break;
-        case ' ':
-          this.lastInput = Input.Space;
-          if (this.resolveSpace !== undefined) {
-            this.resolveSpace();
-            this.resolveSpace = undefined;
-            this.lastInput = undefined;
-          }
-          break;
-        default:
-          break;
-      }
-    });
+    document.addEventListener('keydown', e => this.keyDownListener(e));
+    document.addEventListener('keyup', e => this.keyUpListener(e));
   }
 
   getLastInput() {
-    const last = this.lastInput;
-    this.lastInput = undefined;
+    const last = this.pressedKeys.values().next().value;
+    if(last === Input.Up || last === Input.Space) {
+      this.pressedKeys.delete(last);
+    }
     return last;
   }
 
@@ -43,6 +23,55 @@ export class Controls {
     return new Promise(resolve => {
       this.resolveSpace = resolve;
     });
+  }
+
+  private keyDownListener(event: KeyboardEvent) {
+    switch (event.key) {
+      case 'ArrowUp':
+        this.pressedKeys.add(Input.Up);
+        break;
+      case 'ArrowDown':
+        this.pressedKeys.add(Input.Down);
+        break;
+      case 'ArrowLeft':
+        this.pressedKeys.add(Input.Left);
+        break;
+      case 'ArrowRight':
+        this.pressedKeys.add(Input.Right);
+        break;
+      case ' ':
+        if (this.resolveSpace !== undefined) {
+          this.resolveSpace();
+          this.resolveSpace = undefined;
+        } else {
+          this.pressedKeys.add(Input.Space);
+        }
+        break;
+      default:
+        break;
+    }
+  }
+
+  private keyUpListener(event: KeyboardEvent) {
+    switch (event.key) {
+      case 'ArrowUp':
+        this.pressedKeys.delete(Input.Up);
+        break;
+      case 'ArrowDown':
+        this.pressedKeys.delete(Input.Down);
+        break;
+      case 'ArrowLeft':
+        this.pressedKeys.delete(Input.Left);
+        break;
+      case 'ArrowRight':
+        this.pressedKeys.delete(Input.Right);
+        break;
+      case ' ':
+        this.pressedKeys.delete(Input.Space);
+        break;
+      default:
+        break;
+    }
   }
 }
 

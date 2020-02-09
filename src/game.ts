@@ -22,6 +22,7 @@ export class Game {
 
   private ctx: CanvasRenderingContext2D;
   private lastGameTick: number | undefined;
+  private lastMoved: {last: Input, timestamp: number};
   private activePiece!: Piece;
   private nextPiece: PieceType;
 
@@ -32,6 +33,7 @@ export class Game {
     this.controls = new Controls();
     this.pieceService = new PieceService();
     this.ctx = ctx;
+    this.lastMoved = {last: Input.Space, timestamp: 0};
 
     this.board.clearBoard();
     this.board.startMessage();
@@ -58,7 +60,7 @@ export class Game {
     if(!this.lastGameTick) this.lastGameTick = timestamp;
     const delta = timestamp - this.lastGameTick;
 
-    const { moved, lock } = this.handleInput();
+    const { moved, lock } = this.handleInput(timestamp);
     let shouldRedraw = moved;
     let getNewPiece = false;
 
@@ -96,7 +98,7 @@ export class Game {
     window.requestAnimationFrame((time) => this.onFrame(time));
   }
 
-  private handleInput() {
+  private handleInput(timestamp: number) {
     const lastInput = this.controls.getLastInput();
     let moved = false;
     let lock = false;
@@ -110,6 +112,8 @@ export class Game {
         }
         break;
       case Input.Left:
+        if(!this.moveTimeoutPassed(lastInput, timestamp)) break;
+        this.updateLastMoved(lastInput, timestamp);
         const leftCoords = Utils.moveCoordsLeft(this.activePiece.getCoords());
         if (this.board.isLegalMove(leftCoords)) {
           this.activePiece.moveLeft();
@@ -117,6 +121,8 @@ export class Game {
         }
         break;
       case Input.Right:
+        if(!this.moveTimeoutPassed(lastInput, timestamp)) break;
+        this.updateLastMoved(lastInput, timestamp);
         const rightCoords = Utils.moveCoordsRight(this.activePiece.getCoords());
         if (this.board.isLegalMove(rightCoords)) {
           this.activePiece.moveRight();
@@ -124,6 +130,8 @@ export class Game {
         }
         break;
       case Input.Down:
+        if(!this.moveTimeoutPassed(lastInput, timestamp)) break;
+        this.updateLastMoved(lastInput, timestamp);
         const downCoords = Utils.moveCoordsDown(this.activePiece.getCoords());
         if (this.board.isLegalMove(downCoords)) {
           this.activePiece.moveDown();
@@ -208,5 +216,23 @@ export class Game {
     } else {
       return 200 - (10 * (level - 9));
     }
+  }
+
+  private moveTimeoutPassed(move: Input, timestamp: number) {
+    if(move === this.lastMoved.last) {
+      const delta = timestamp - this.lastMoved.timestamp;
+      if(delta > 80) {
+        return true;
+      } else {
+        return false;
+      }
+    } else {
+      return true;
+    }
+  }
+
+  private updateLastMoved(move: Input, timestamp: number) {
+    this.lastMoved.last = move;
+    this.lastMoved.timestamp = timestamp;
   }
 }
