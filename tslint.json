@@ -1,7 +1,6 @@
 {
     "extends": "tslint:recommended",
     "rules": {
-        // "no-console": false,
         "class-name": true,
         "comment-format": [
             true,
@@ -53,7 +52,6 @@
         ],
         "whitespace": [
             true,
-            "check-branch",
             "check-decl",
             "check-operator",
             "check-separator",
