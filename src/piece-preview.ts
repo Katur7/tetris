@@ -1,11 +1,5 @@
-import { Piece, PieceType } from './pieces/piece';
-import { IPiece } from './pieces/i-piece';
-import { OPiece } from './pieces/o-piece';
-import { TPiece } from './pieces/t-piece';
-import { JPiece } from './pieces/j-piece';
-import { LPiece } from './pieces/l-piece';
-import { SPiece } from './pieces/s-piece';
-import { ZPiece } from './pieces/z-piece';
+import { Piece, PieceType } from './pieces';
+import { IPiece, JPiece, LPiece, OPiece, SPiece, TPiece, ZPiece } from './pieces';
 
 export class PiecePreview {
   private ctx: CanvasRenderingContext2D;
