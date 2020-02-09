@@ -19,8 +19,13 @@ export class Game {
     this.nextPiece = new NextPiece(ctx);
     this.controls = new Controls();
 
-    this.lastFrame = +new Date();
+    this.board.clearBoard();
+    this.board.startMessage();
+
+    this.controls.awaitSpace()
+    .then(() => {
     this.start();
+    });
   }
 
   start() {

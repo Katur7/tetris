@@ -56,6 +56,22 @@ export class Board {
     return filledRows;
   }
 
+  startMessage() {
+    // Background
+    this.ctx.fillStyle = 'grey';
+    this.ctx.globalAlpha = 0.5;
+    this.ctx.fillRect(50, 50, 310, 720);
+    this.ctx.globalAlpha = 1.0;
+
+    // Text
+    this.ctx.fillStyle = 'black';
+    this.ctx.font = '50px Arial';
+    this.ctx.fillText('Tetris', 140, 400);
+
+    this.ctx.font = '20px Arial';
+    this.ctx.fillText('Press space to start a new game', 60, 480);
+  }
+
   gameOver() {
     // Background
     this.ctx.fillStyle = 'grey';
