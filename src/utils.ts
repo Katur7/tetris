@@ -5,8 +5,7 @@ const canvas = document.getElementById('canvas') as HTMLCanvasElement;
 export class Utils {
   static HEIGHT = canvas.height;
   static WIDTH = canvas.width;
-  static BOX_SIZE = 40;
-  static GRID_GAP = 41;
+  static BOX_SIZE = 39;
 
   static getCoords(col: number, row: number) {
     const x = 1 + (col * (this.BOX_SIZE + 1));

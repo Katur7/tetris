@@ -132,7 +132,7 @@ export class Board {
   private drawGrid() {
     this.ctx.strokeStyle = 'black';
     this.ctx.lineWidth = 1;
-    for (let x = 0.5; x < Utils.WIDTH; x += Utils.GRID_GAP) {
+    for (let x = 0.5; x < Utils.WIDTH; x += Utils.BOX_SIZE + 1) {
       this.ctx.beginPath();
       this.ctx.moveTo(x, 0.5);
       this.ctx.lineTo(x, Utils.HEIGHT);
@@ -140,7 +140,7 @@ export class Board {
       this.ctx.stroke();
     }
 
-    for (let y = 0.5; y < Utils.HEIGHT; y += Utils.GRID_GAP) {
+    for (let y = 0.5; y < Utils.HEIGHT; y += Utils.BOX_SIZE + 1) {
       this.ctx.beginPath();
       this.ctx.moveTo(0.5, y);
       this.ctx.lineTo(Utils.WIDTH, y);
