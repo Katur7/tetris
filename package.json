@@ -51,5 +51,12 @@
     "webpack-dev-server": "^3.10.3",
     "webpack-merge": "^4.2.2"
   },
-  "dependencies": {}
+  "dependencies": {},
+  "resolutions": {
+    "**/**/lodash": "^4.17.12",
+    "**/**/micromatch": "^4.0.0",
+    "**/**/braces": "^3.0.0",
+    "**/**/fstream": "^1.0.12",
+    "**/node-gyp/tar": "^2.2.2"
+  }
 }
