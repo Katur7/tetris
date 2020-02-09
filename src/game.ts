@@ -1,13 +1,17 @@
 import { Board } from './board';
 import { Controls, Input } from './controls';
 import { PiecePreview } from './piece-preview';
-import { Piece, PieceType } from './pieces/piece';
 import { Score } from './score';
 import { Utils } from './utils';
 import { PieceService } from './piece-service';
+import { Piece, PieceType } from './pieces/piece';
 import { IPiece } from './pieces/i-piece';
 import { OPiece } from './pieces/o-piece';
 import { TPiece } from './pieces/t-piece';
+import { JPiece } from './pieces/j-piece';
+import { LPiece } from './pieces/l-piece';
+import { SPiece } from './pieces/s-piece';
+import { ZPiece } from './pieces/z-piece';
 
 export class Game {
   private score: Score;
@@ -179,10 +183,18 @@ export class Game {
     switch (type) {
       case 'I':
         return new IPiece(3, 0, this.ctx);
+      case 'J':
+        return new JPiece(3, 0, this.ctx);
+      case 'L':
+        return new LPiece(3, 0, this.ctx);
       case 'O':
-        return new OPiece(4, 0, this.ctx);
+        return new OPiece(4, 0, this.ctx)
+      case 'S':
+        return new SPiece(3, 0, this.ctx);
       case 'T':
         return new TPiece(3, 0, this.ctx);
+      case 'Z':
+        return new ZPiece(3, 0, this.ctx);
       default:
         throw new Error('PieceType not supported: ' + type);;
     }

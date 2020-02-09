@@ -57,7 +57,6 @@ export abstract class Piece {
     }
   }
 
-  abstract getType(): PieceType;
   abstract getColor(): string;
 
   protected getRotatedOrientation() {
@@ -97,4 +96,4 @@ export interface Coordinates {
   y: number;
 }
 
-export type PieceType = 'I' | 'O' | 'T' | 'J' | 'L' | 'Z' | 'N';
+export type PieceType = 'I' | 'O' | 'T' | 'J' | 'L' | 'Z' | 'S';

@@ -1,17 +1,17 @@
 import { Piece } from './piece';
 
-export class TPiece extends Piece {
+export class JPiece extends Piece {
   getColor() {
-    return 'purple';
+    return 'dodgerblue';
   }
 
   protected getUpCoords() {
     const x = this.col;
     const y = this.row;
     return  [
+      {x, y: y},
       {x, y: y + 1},
       {x: x + 1, y: y + 1},
-      {x: x + 1, y},
       {x: x + 2, y: y + 1}
     ];
   }
@@ -21,8 +21,8 @@ export class TPiece extends Piece {
     const y = this.row;
     return  [
       {x: x + 1, y},
+      {x: x + 2, y},
       {x: x + 1, y: y + 1},
-      {x: x + 2, y: y + 1},
       {x: x + 1, y: y + 2}
     ];
   }
@@ -31,10 +31,10 @@ export class TPiece extends Piece {
     const x = this.col;
     const y = this.row;
     return  [
-      {x, y: y + 1},
-      {x: x + 1, y: y + 1},
-      {x: x + 1, y: y + 2},
-      {x: x + 2, y: y + 1}
+      {x, y},
+      {x: x + 1, y},
+      {x: x + 2, y: y + 1},
+      {x: x + 2, y}
     ];
   }
 
@@ -44,7 +44,7 @@ export class TPiece extends Piece {
     return  [
       {x: x + 1, y},
       {x: x + 1, y: y + 1},
-      {x, y: y + 1},
+      {x, y: y + 2},
       {x: x + 1, y: y + 2}
     ];
   }

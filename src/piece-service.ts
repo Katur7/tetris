@@ -15,7 +15,7 @@ export class PieceService {
   }
 
   private getShuffledBag(): PieceType[] {
-    return this.shuffle(['I', 'O', 'T']);   // TODO: add the other types
+    return this.shuffle(['I', 'O', 'T', 'J', 'L', 'Z', 'S']);
   }
 
   private shuffle(array: PieceType[]) {

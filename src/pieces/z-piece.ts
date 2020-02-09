@@ -1,8 +1,8 @@
 import { Piece } from './piece';
 
-export class OPiece extends Piece {
+export class ZPiece extends Piece {
   getColor() {
-    return 'yellow';
+    return 'red';
   }
 
   protected getUpCoords() {
@@ -10,14 +10,21 @@ export class OPiece extends Piece {
     const y = this.row;
     return  [
       {x, y},
+      {x: x + 1, y: y + 1},
       {x: x + 1, y},
-      {x, y: y + 1},
-      {x: x + 1, y: y + 1}
+      {x: x + 2, y: y + 1}
     ];
   }
 
   protected getRightCoords() {
-    return this.getUpCoords();
+    const x = this.col;
+    const y = this.row;
+    return  [
+      {x: x + 1, y},
+      {x, y: y + 1},
+      {x: x + 1, y: y + 1},
+      {x, y: y + 2}
+    ];
   }
 
   protected getDownCoords() {
@@ -25,6 +32,6 @@ export class OPiece extends Piece {
   }
 
   protected getLeftCoords() {
-    return this.getUpCoords();
+    return this.getRightCoords();
   }
 }

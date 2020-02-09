@@ -1,7 +1,11 @@
+import { Piece, PieceType } from './pieces/piece';
 import { IPiece } from './pieces/i-piece';
 import { OPiece } from './pieces/o-piece';
-import { Piece, PieceType } from './pieces/piece';
 import { TPiece } from './pieces/t-piece';
+import { JPiece } from './pieces/j-piece';
+import { LPiece } from './pieces/l-piece';
+import { SPiece } from './pieces/s-piece';
+import { ZPiece } from './pieces/z-piece';
 
 export class PiecePreview {
   private ctx: CanvasRenderingContext2D;
@@ -23,11 +27,23 @@ export class PiecePreview {
       case 'I':
         piece = new IPiece(0.25, 0.25, this.ctx);
         break;
+      case 'J':
+        piece = new JPiece(0.75, 0.75, this.ctx);
+        break;
+      case 'L':
+        piece = new LPiece(0.75, 0.75, this.ctx);
+        break;
       case 'O':
         piece = new OPiece(1.25, 0.75, this.ctx);
         break;
+      case 'S':
+        piece = new SPiece(0.75, 0.75, this.ctx);
+        break;
       case 'T':
         piece = new TPiece(0.75, 0.75, this.ctx);
+        break;
+      case 'Z':
+        piece = new ZPiece(0.75, 0.75, this.ctx);
         break;
       default:
         throw new Error('PieceType not supported: ' + pieceType);;

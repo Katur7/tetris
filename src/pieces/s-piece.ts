@@ -1,8 +1,8 @@
 import { Piece } from './piece';
 
-export class IPiece extends Piece {
+export class SPiece extends Piece {
   getColor() {
-    return 'aqua';
+    return 'limegreen';
   }
 
   protected getUpCoords() {
@@ -11,20 +11,19 @@ export class IPiece extends Piece {
     return  [
       {x, y: y + 1},
       {x: x + 1, y: y + 1},
-      {x: x + 2, y: y + 1},
-      {x: x + 3, y: y + 1}
+      {x: x + 1, y},
+      {x: x + 2, y}
     ];
-    
   }
 
   protected getRightCoords() {
     const x = this.col;
     const y = this.row;
     return  [
-      {x: x + 1, y},
+      {x, y},
+      {x, y: y + 1},
       {x: x + 1, y: y + 1},
-      {x: x + 1, y: y + 2},
-      {x: x + 1, y: y + 3}
+      {x: x + 1, y: y + 2}
     ];
   }
 
