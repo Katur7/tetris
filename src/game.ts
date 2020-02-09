@@ -1,30 +1,42 @@
 import { Board } from './board';
 import { Controls, Input } from './controls';
-import { NextPiece } from './next-piece';
-import { Piece } from './pieces/piece';
+import { PiecePreview } from './piece-preview';
+import { Piece, PieceType } from './pieces/piece';
 import { Score } from './score';
 import { Utils } from './utils';
+import { PieceService } from './piece-service';
+import { IPiece } from './pieces/i-piece';
+import { OPiece } from './pieces/o-piece';
+import { TPiece } from './pieces/t-piece';
 
 export class Game {
   private score: Score;
   private board: Board;
-  private nextPiece: NextPiece;
+  private piecePreview: PiecePreview;
   private controls: Controls;
-  private lastFrame: number;
+  private pieceService: PieceService;
+
+  private ctx: CanvasRenderingContext2D;
+  private lastFrame!: number;
   private activePiece!: Piece;
+  private nextPiece: PieceType;
 
   constructor(ctx: CanvasRenderingContext2D) {
     this.score = new Score();
     this.board = new Board(ctx);
-    this.nextPiece = new NextPiece(ctx);
+    this.piecePreview = new PiecePreview();
     this.controls = new Controls();
+    this.pieceService = new PieceService();
+    this.ctx = ctx;
 
     this.board.clearBoard();
     this.board.startMessage();
+    this.nextPiece = this.pieceService.getNextPiece();
+    this.piecePreview.setNextPiece(this.nextPiece);
 
     this.controls.awaitSpace()
     .then(() => {
-    this.start();
+      this.start();
     });
   }
 
@@ -32,10 +44,9 @@ export class Game {
     this.board.clearBoard();
     this.score.resetScore();
 
-    this.activePiece = this.nextPiece.useNextPiece();
-    this.activePiece.draw();
+    this.setNextPiece();
 
-    // start music
+    // TODO: start music
     this.lastFrame = +new Date();
     window.requestAnimationFrame(() => this.onFrame());
   }
@@ -68,14 +79,13 @@ export class Game {
     }
 
     if (getNewPiece) {
-      this.activePiece = this.nextPiece.useNextPiece();
+      this.setNextPiece()
       if (this.isGameOver(this.activePiece)) {
         this.gameOver();
         return;
       } else {
         this.activePiece.draw();
       }
-
     } else if (shouldRedraw) {
       this.activePiece.draw();
     }
@@ -156,5 +166,25 @@ export class Game {
     .then(() => {
       this.start();
     });
+  }
+
+  private setNextPiece() {
+    this.activePiece = this.typeToPiece(this.nextPiece);
+    this.nextPiece = this.pieceService.getNextPiece();
+    this.piecePreview.setNextPiece(this.nextPiece);
+    this.activePiece.draw();
+  }
+
+  private typeToPiece(type: PieceType) {
+    switch (type) {
+      case 'I':
+        return new IPiece(3, 0, this.ctx);
+      case 'O':
+        return new OPiece(4, 0, this.ctx);
+      case 'T':
+        return new TPiece(3, 0, this.ctx);
+      default:
+        throw new Error('PieceType not supported: ' + type);;
+    }
   }
 }
