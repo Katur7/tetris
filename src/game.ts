@@ -156,7 +156,9 @@ export class Game {
     }
 
     const filledRows = this.board.clearFilledRows();
+    if(filledRows > 0) {
     this.score.clearLineBonus(filledRows);
+  }
   }
 
   private isGameOver(nextPiece: Piece) {
